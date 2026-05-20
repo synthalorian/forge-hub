@@ -9,7 +9,6 @@
 <% @title = "#{@backup[:repo_name]} · Backup ##{@backup[:id]}" %>
 
 <div class="max-w-4xl space-y-6">
-  <!-- Header -->
   <div class="flex items-center justify-between">
     <div>
       <div class="flex items-center gap-3">
@@ -21,43 +20,41 @@
     </div>
   </div>
 
-  <!-- Metadata Grid -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-    <div class="rounded-xl bg-bg-panel border border-border-subtle/20 p-4">
+    <div class="rounded-xl bg-bg-panel border border-border-faint p-4">
       <p class="text-xs text-text-muted uppercase tracking-wider mb-1">Created</p>
       <p class="text-sm font-mono text-text-primary"><%= human_time(@backup[:created_at]) %></p>
       <p class="text-xs text-text-dim mt-0.5"><%= time_ago(@backup[:created_at]) %></p>
     </div>
 
-    <div class="rounded-xl bg-bg-panel border border-border-subtle/20 p-4">
+    <div class="rounded-xl bg-bg-panel border border-border-faint p-4">
       <p class="text-xs text-text-muted uppercase tracking-wider mb-1">Size</p>
       <p class="text-sm font-mono text-text-primary"><%= human_size(@backup[:size_bytes]) %></p>
       <p class="text-xs text-text-dim mt-0.5"><%= number_with_delimiter(@backup[:size_bytes]) %> bytes</p>
     </div>
 
-    <div class="rounded-xl bg-bg-panel border border-border-subtle/20 p-4">
+    <div class="rounded-xl bg-bg-panel border border-border-faint p-4">
       <p class="text-xs text-text-muted uppercase tracking-wider mb-1">Backup ID</p>
       <p class="text-sm font-mono text-neon-cyan">#<%= @backup[:id] %></p>
     </div>
 
-    <div class="rounded-xl bg-bg-panel border border-border-subtle/20 p-4">
+    <div class="rounded-xl bg-bg-panel border border-border-faint p-4">
       <p class="text-xs text-text-muted uppercase tracking-wider mb-1">Commits</p>
       <p class="text-xl font-bold font-mono text-text-primary"><%= @backup[:commit_count] %></p>
     </div>
 
-    <div class="rounded-xl bg-bg-panel border border-border-subtle/20 p-4">
+    <div class="rounded-xl bg-bg-panel border border-border-faint p-4">
       <p class="text-xs text-text-muted uppercase tracking-wider mb-1">Branches</p>
       <p class="text-xl font-bold font-mono text-text-primary"><%= @backup[:branch_count] %></p>
     </div>
 
-    <div class="rounded-xl bg-bg-panel border border-border-subtle/20 p-4">
+    <div class="rounded-xl bg-bg-panel border border-border-faint p-4">
       <p class="text-xs text-text-muted uppercase tracking-wider mb-1">Tags</p>
       <p class="text-xl font-bold font-mono text-text-primary"><%= @backup[:tag_count] %></p>
     </div>
   </div>
 
-  <!-- SHA-256 -->
-  <div class="rounded-xl bg-bg-panel border border-border-subtle/20 p-4">
+  <div class="rounded-xl bg-bg-panel border border-border-faint p-4">
     <p class="text-xs text-text-muted uppercase tracking-wider mb-2">SHA-256 Checksum</p>
     <div class="flex items-center gap-3">
       <code class="text-xs font-mono text-neon-cyan break-all bg-bg-dark/50 px-3 py-2 rounded-lg flex-1">
@@ -66,13 +63,11 @@
     </div>
   </div>
 
-  <!-- Archive Path -->
-  <div class="rounded-xl bg-bg-panel border border-border-subtle/20 p-4">
+  <div class="rounded-xl bg-bg-panel border border-border-faint p-4">
     <p class="text-xs text-text-muted uppercase tracking-wider mb-2">Archive Location</p>
     <p class="text-sm font-mono text-text-primary truncate"><%= @backup[:archive_path] %></p>
   </div>
 
-  <!-- Restore Status -->
   <% if Rails.cache.read("forge_restore_running_#{@backup[:id]}") %>
     <div class="rounded-lg bg-neon-yellow/10 border border-neon-yellow/30 p-3 text-neon-yellow text-sm">
       ⏳ Restore in progress...
@@ -90,7 +85,6 @@
     <% Rails.cache.delete("forge_restore_result_#{@backup[:id]}") %>
   <% end %>
 
-  <!-- Actions -->
   <div class="flex gap-3 pt-2">
     <%= button_to "Restore Backup",
         restore_anvil_backup_path(@backup[:id]),
@@ -101,7 +95,7 @@
                 transition-colors text-sm font-medium" %>
 
     <%= link_to anvil_backups_path,
-        class: "px-4 py-2 rounded-lg bg-bg-panel border border-border-subtle/20
+        class: "px-4 py-2 rounded-lg bg-bg-panel border border-border-faint
                 text-text-muted hover:text-text-primary hover:border-neon-cyan/30
                 transition-colors text-sm font-medium" do %>
       ← Back to Backups

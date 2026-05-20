@@ -1,13 +1,13 @@
 <%# frozen_string_literal: true %>
 
-<header class="h-14 bg-bg-panel/80 backdrop-blur-md border-b border-border-subtle/20
+<header class="h-14 bg-bg-panel/80 backdrop-blur-md border-b border-border-faint
                flex items-center justify-between px-6 shrink-0">
-  <!-- Left: breadcrumb -->
   <div class="flex items-center gap-3">
     <button
       data-action="click->sidebar#toggle"
       data-sidebar-target="toggleIcon"
-      class="text-text-muted hover:text-neon-cyan transition-colors text-sm w-6 text-center"
+      class="text-text-muted hover:text-neon-cyan transition-colors text-sm w-6 h-6
+             flex items-center justify-center rounded hover:bg-sidebar-hover"
       aria-label="Toggle sidebar"
     >
       ◀
@@ -17,10 +17,9 @@
     </nav>
   </div>
 
-  <!-- Right: status + actions -->
   <div class="flex items-center gap-4">
     <span class="flex items-center gap-1.5 text-xs text-text-muted font-mono">
-      <span class="w-1.5 h-1.5 rounded-full bg-neon-green inline-block"></span>
+      <span class="w-2 h-2 rounded-full bg-neon-green inline-block"></span>
       connected
     </span>
   </div>

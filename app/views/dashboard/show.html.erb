@@ -2,7 +2,7 @@
   <span class="text-text-primary">Dashboard</span>
 <% end %>
 
-<div class="space-y-6 max-w-6xl">
+<div class="space-y-8 max-w-6xl">
   <div>
     <h1 class="text-3xl font-bold text-neon-cyan font-mono tracking-tight">FORGE HUB</h1>
     <p class="text-text-muted mt-1 text-sm">Command center for your forge infrastructure</p>
@@ -15,70 +15,20 @@
       <%= stat_card label: "Repositories", value: @unique_repos, icon: "⬡",
           icon_color: "text-neon-purple" %>
       <%= stat_card label: "Active Schedules", value: @schedule_count, icon: "⚡",
-          icon_color: "text-neon-hot-pink", href: anvil_schedules_path %>
+          icon_color: "text-neon-pink", href: anvil_schedules_path %>
       <%= stat_card label: "Storage Used", value: human_size(@disk_usage), icon: "◈",
           icon_color: "text-neon-yellow" %>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="rounded-xl bg-bg-panel border border-border-subtle/20 hover:border-neon-cyan/30 transition-all duration-200 p-5">
-        <div class="flex items-center gap-3">
-          <span class="text-neon-cyan text-2xl">◆</span>
-          <div>
-            <div class="flex items-center gap-2">
-              <p class="text-2xl font-bold font-mono text-text-primary"><%= @backup_count %></p>
-              <% if @weekly_trend && @weekly_trend[:direction] != :neutral %>
-                <span class="text-xs font-mono <%= @weekly_trend[:direction] == :up ? 'text-green-400' : 'text-red-400' %>">
-                  <% if @weekly_trend[:direction] == :up %>↑<% else %>↓<% end %>
-                  <%= (@weekly_trend[:current] - @weekly_trend[:previous]).abs %>
-                </span>
-              <% end %>
-            </div>
-            <p class="text-xs text-text-muted uppercase tracking-wider mt-0.5">This Week</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="rounded-xl bg-bg-panel border border-border-subtle/20 hover:border-neon-purple/30 transition-all duration-200 p-5">
-        <div class="flex items-center gap-3">
-          <span class="text-neon-purple text-2xl">⬡</span>
-          <div>
-            <p class="text-2xl font-bold font-mono text-text-primary"><%= @unique_repos %></p>
-            <p class="text-xs text-text-muted uppercase tracking-wider mt-0.5">Unique Repos</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="rounded-xl bg-bg-panel border border-border-subtle/20 hover:border-neon-yellow/30 transition-all duration-200 p-5">
-        <div class="flex items-center gap-3">
-          <span class="text-neon-yellow text-2xl">◈</span>
-          <div>
-            <p class="text-2xl font-bold font-mono text-text-primary"><%= human_size(@disk_usage) %></p>
-            <p class="text-xs text-text-muted uppercase tracking-wider mt-0.5">Total Disk Usage</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="rounded-xl bg-bg-panel border border-border-subtle/20 hover:border-neon-hot-pink/30 transition-all duration-200 p-5">
-        <div class="flex items-center gap-3">
-          <span class="text-neon-hot-pink text-2xl">◇</span>
-          <div>
-            <p class="text-2xl font-bold font-mono text-text-primary"><%= human_size(@average_backup_size) %></p>
-            <p class="text-xs text-text-muted uppercase tracking-wider mt-0.5">Avg Backup Size</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div class="rounded-xl bg-bg-panel border border-border-subtle/20 p-5">
-        <h3 class="text-sm font-semibold text-text-primary mb-3 uppercase tracking-wider">Most Backed Up Repos</h3>
+      <div class="rounded-xl bg-bg-panel border border-border-faint p-5">
+        <h3 class="text-sm font-semibold text-text-primary mb-4 uppercase tracking-wider">Most Backed Up Repos</h3>
         <% if @top_repos.present? %>
           <div class="space-y-2">
             <% @top_repos.each_with_index do |repo, i| %>
-              <div class="flex items-center justify-between py-2 px-3 rounded-lg bg-bg-surface/50 border border-border-subtle/10">
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-mono text-text-dim w-5"><%= i + 1 %>.</span>
+              <div class="flex items-center justify-between py-2 px-3 rounded-lg bg-bg-surface/50 border border-border-faint">
+                <div class="flex items-center gap-2.5">
+                  <span class="text-xs font-mono text-text-dim w-5 text-right"><%= i + 1 %>.</span>
                   <span class="text-sm font-mono text-neon-cyan"><%= repo[:name] %></span>
                 </div>
                 <div class="flex items-center gap-3">
@@ -93,30 +43,30 @@
         <% end %>
       </div>
 
-      <div class="rounded-xl bg-bg-panel border border-border-subtle/20 p-5">
-        <h3 class="text-sm font-semibold text-text-primary mb-3 uppercase tracking-wider">Latest Backup</h3>
+      <div class="rounded-xl bg-bg-panel border border-border-faint p-5">
+        <h3 class="text-sm font-semibold text-text-primary mb-4 uppercase tracking-wider">Latest Backup</h3>
         <% if @latest_backup %>
           <div class="space-y-3">
             <div class="flex items-center gap-2">
               <span class="text-neon-cyan text-lg">◆</span>
               <span class="text-sm font-mono text-text-primary"><%= @latest_backup[:repo_name] %></span>
             </div>
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <div>
-                <span class="text-text-dim">Size:</span>
-                <span class="text-text-primary ml-1"><%= human_size(@latest_backup[:size_bytes]) %></span>
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="py-2 px-3 rounded-lg bg-bg-surface/50 border border-border-faint">
+                <span class="text-text-dim block mb-0.5">Size</span>
+                <span class="text-text-primary font-mono"><%= human_size(@latest_backup[:size_bytes]) %></span>
               </div>
-              <div>
-                <span class="text-text-dim">When:</span>
-                <span class="text-text-primary ml-1" title="<%= human_time(@latest_backup[:created_at]) %>"><%= time_ago(@latest_backup[:created_at]) %></span>
+              <div class="py-2 px-3 rounded-lg bg-bg-surface/50 border border-border-faint">
+                <span class="text-text-dim block mb-0.5">When</span>
+                <span class="text-text-primary font-mono" title="<%= human_time(@latest_backup[:created_at]) %>"><%= time_ago(@latest_backup[:created_at]) %></span>
               </div>
-              <div>
-                <span class="text-text-dim">Commits:</span>
-                <span class="text-text-primary ml-1"><%= @latest_backup[:commit_count] %></span>
+              <div class="py-2 px-3 rounded-lg bg-bg-surface/50 border border-border-faint">
+                <span class="text-text-dim block mb-0.5">Commits</span>
+                <span class="text-text-primary font-mono"><%= @latest_backup[:commit_count] %></span>
               </div>
-              <div>
-                <span class="text-text-dim">Type:</span>
-                <span class="text-text-primary ml-1"><%= @latest_backup[:backup_type]&.capitalize || "Full" %></span>
+              <div class="py-2 px-3 rounded-lg bg-bg-surface/50 border border-border-faint">
+                <span class="text-text-dim block mb-0.5">Type</span>
+                <span class="text-text-primary font-mono"><%= @latest_backup[:backup_type]&.capitalize || "Full" %></span>
               </div>
             </div>
           </div>
@@ -131,7 +81,7 @@
       </div>
     </div>
   <% else %>
-    <div class="rounded-xl bg-bg-panel border border-border-subtle/20 p-8 text-center">
+    <div class="rounded-xl bg-bg-panel border border-border-faint p-8 text-center">
       <span class="text-4xl text-text-dim mb-4 block">🔧</span>
       <h2 class="text-xl font-bold text-text-primary mb-2">Forge Not Detected</h2>
       <p class="text-text-muted max-w-md mx-auto mb-6">
@@ -151,26 +101,25 @@
     <h2 class="text-lg font-semibold text-text-primary mb-4">Pillars</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       <% pillars = [
-        { name: "Anvil", path: "/anvil", icon: "◆", desc: "Backup & restore management", color: "text-neon-cyan", status: "active" },
-        { name: "Bellows", path: "/bellows", icon: "◇", desc: "AI agent orchestration", color: "text-neon-purple", status: "coming" },
-        { name: "Flame", path: "/flame", icon: "✦", desc: "Template scaffolding engine", color: "text-neon-hot-pink", status: "coming" },
-        { name: "Tongs", path: "/tongs", icon: "▣", desc: "Code transformation toolkit", color: "text-neon-yellow", status: "coming" },
-        { name: "Crucible", path: "/crucible", icon: "⬡", desc: "Build & compilation pipeline", color: "text-neon-red", status: "coming" },
-        { name: "Bridge", path: "/bridge", icon: "⇌", desc: "External integration gateway", color: "text-neon-blue", status: "coming" },
+        { name: "Anvil", path: "/anvil", icon: "◆", desc: "Backup & restore management", color: "text-neon-cyan", border_hover: "hover:border-neon-cyan/40", status: "active" },
+        { name: "Bellows", path: "/bellows", icon: "◇", desc: "AI agent orchestration", color: "text-neon-purple", border_hover: "hover:border-neon-purple/40", status: "coming" },
+        { name: "Flame", path: "/flame", icon: "✦", desc: "Template scaffolding engine", color: "text-neon-pink", border_hover: "hover:border-neon-pink/40", status: "coming" },
+        { name: "Tongs", path: "/tongs", icon: "▣", desc: "Code transformation toolkit", color: "text-neon-yellow", border_hover: "hover:border-neon-yellow/40", status: "coming" },
+        { name: "Crucible", path: "/crucible", icon: "⬡", desc: "Build & compilation pipeline", color: "text-neon-red", border_hover: "hover:border-neon-red/40", status: "coming" },
+        { name: "Bridge", path: "/bridge", icon: "⇌", desc: "External integration gateway", color: "text-neon-blue", border_hover: "hover:border-neon-blue/40", status: "coming" },
       ] %>
       <% pillars.each do |pillar| %>
         <% active = pillar[:status] == "active" %>
-        <% hover_border = active ? "hover:border-neon-cyan/40" : "hover:border-border-subtle/40" %>
         <a href="<%= pillar[:path] %>"
-           class="group rounded-xl bg-bg-panel border border-border-subtle/20 p-5 <%= hover_border %> hover:bg-bg-surface transition-all duration-200">
+           class="group rounded-xl bg-bg-panel border border-border-faint p-5 <%= pillar[:border_hover] %> hover:bg-bg-surface/50 transition-all duration-200 block">
           <div class="flex items-center gap-3 mb-3">
             <span class="<%= pillar[:color] %> text-xl"><%= pillar[:icon] %></span>
-            <div>
-              <span class="text-sm font-semibold text-text-primary group-hover:text-text-primary transition-colors">
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-semibold text-text-primary">
                 <%= pillar[:name] %>
               </span>
               <% if active %>
-                <span class="inline-block w-1.5 h-1.5 rounded-full bg-neon-cyan align-middle ml-1"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-neon-cyan"></span>
               <% end %>
             </div>
           </div>

@@ -2,39 +2,30 @@
   <span class="text-text-primary">Tongs</span>
 <% end %>
 
-<div class="space-y-6 max-w-6xl">
+<div class="space-y-8 max-w-6xl">
   <div>
-    <h1 class="text-2xl font-bold text-neon-yellow font-mono tracking-tight">TONGS</h1>
-    <p class="text-text-muted text-sm mt-1">System management — grip and shape your environment</p>
+    <div class="flex items-center gap-3">
+      <span class="text-neon-yellow text-3xl">▣</span>
+      <div>
+        <h1 class="text-2xl font-bold text-neon-yellow font-mono tracking-tight">TONGS</h1>
+        <p class="text-text-muted text-sm mt-0.5">System management — grip and shape your environment</p>
+      </div>
+    </div>
   </div>
 
-  <!-- System Overview -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    <%= render "components/stat_card",
-        label: "Hostname",
-        value: @system_info[:hostname].presence || "N/A",
-        icon: "▣",
+    <%= stat_card label: "Hostname", value: @system_info[:hostname].presence || "N/A", icon: "▣",
         icon_color: "text-neon-yellow" %>
-    <%= render "components/stat_card",
-        label: "Uptime",
-        value: @system_info[:uptime].presence || "N/A",
-        icon: "⏱",
+    <%= stat_card label: "Uptime", value: @system_info[:uptime].presence || "N/A", icon: "⏱",
         icon_color: "text-neon-cyan" %>
-    <%= render "components/stat_card",
-        label: "Processes",
-        value: @system_info[:processes].presence || "N/A",
-        icon: "⚙",
+    <%= stat_card label: "Processes", value: @system_info[:processes].presence || "N/A", icon: "⚙",
         icon_color: "text-neon-purple" %>
-    <%= render "components/stat_card",
-        label: "Load Average",
-        value: @system_info[:load_avg].presence || "N/A",
-        icon: "📊",
-        icon_color: "text-neon-hot-pink" %>
+    <%= stat_card label: "Load Average", value: @system_info[:load_avg].presence || "N/A", icon: "📊",
+        icon_color: "text-neon-pink" %>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-    <!-- System Info Card -->
-    <div class="rounded-xl bg-bg-panel border border-border-subtle/20 p-5">
+    <div class="rounded-xl bg-bg-panel border border-border-faint p-5">
       <h3 class="text-sm font-semibold text-text-primary mb-4 uppercase tracking-wider">System Info</h3>
       <div class="space-y-3">
         <% info_items = [
@@ -44,7 +35,7 @@
           ["CPU Cores", @system_info[:cpu_cores]]
         ] %>
         <% info_items.each do |label, value| %>
-          <div class="flex items-center justify-between py-2 px-3 rounded-lg bg-bg-surface/30 border border-border-subtle/10">
+          <div class="flex items-center justify-between py-2 px-3 rounded-lg bg-bg-surface/30 border border-border-faint">
             <span class="text-xs text-text-muted"><%= label %></span>
             <span class="text-xs font-mono text-text-primary"><%= value.presence || "N/A" %></span>
           </div>
@@ -52,8 +43,7 @@
       </div>
     </div>
 
-    <!-- Resource Usage Card -->
-    <div class="rounded-xl bg-bg-panel border border-border-subtle/20 p-5">
+    <div class="rounded-xl bg-bg-panel border border-border-faint p-5">
       <h3 class="text-sm font-semibold text-text-primary mb-4 uppercase tracking-wider">Resource Usage</h3>
       <div class="space-y-3">
         <% resource_items = [
@@ -63,7 +53,7 @@
           ["Processes", @system_info[:processes]]
         ] %>
         <% resource_items.each do |label, value| %>
-          <div class="flex items-center justify-between py-2 px-3 rounded-lg bg-bg-surface/30 border border-border-subtle/10">
+          <div class="flex items-center justify-between py-2 px-3 rounded-lg bg-bg-surface/30 border border-border-faint">
             <span class="text-xs text-text-muted"><%= label %></span>
             <span class="text-xs font-mono text-text-primary"><%= value.presence || "N/A" %></span>
           </div>
@@ -72,8 +62,7 @@
     </div>
   </div>
 
-  <!-- Commands Reference -->
-  <div class="rounded-xl bg-bg-panel border border-border-subtle/20 p-5">
+  <div class="rounded-xl bg-bg-panel border border-border-faint p-5">
     <h3 class="text-sm font-semibold text-text-primary mb-4 uppercase tracking-wider">Coming to Forge CLI</h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
       <% commands = [
@@ -85,7 +74,7 @@
         { cmd: "forge theme create", desc: "Interactive theme builder" }
       ] %>
       <% commands.each do |cmd| %>
-        <div class="bg-bg-surface/30 rounded-lg p-3 border border-border-subtle/10">
+        <div class="bg-bg-surface/30 rounded-lg p-3 border border-border-faint">
           <code class="text-xs text-neon-cyan font-mono"><%= cmd[:cmd] %></code>
           <p class="text-xs text-text-muted mt-1"><%= cmd[:desc] %></p>
         </div>
