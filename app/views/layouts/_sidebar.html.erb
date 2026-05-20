@@ -1,0 +1,63 @@
+<%# frozen_string_literal: true %>
+
+<%
+  current_path = request.path
+  pillars = [
+    { name: "Dashboard",   path: "/",          icon: "◈", color: "text-neon-cyan" },
+    { name: "Anvil",       path: "/anvil",     icon: "◆", color: "text-neon-cyan" },
+    { name: "Bellows",     path: "/bellows",   icon: "◇", color: "text-neon-purple" },
+    { name: "Flame",       path: "/flame",     icon: "✦", color: "text-neon-hot-pink" },
+    { name: "Tongs",       path: "/tongs",     icon: "▣", color: "text-neon-yellow" },
+    { name: "Crucible",    path: "/crucible",  icon: "⬡", color: "text-neon-red" },
+    { name: "Bridge",      path: "/bridge",    icon: "⇌", color: "text-neon-blue" },
+  ]
+%>
+
+<aside
+  data-sidebar-target="sidebar"
+  class="w-60 sidebar-scroll
+         bg-sidebar-bg border-r border-border-subtle/30
+         flex flex-col
+         transition-all duration-300
+         shrink-0 overflow-y-auto"
+>
+  <!-- Brand -->
+  <div class="px-5 py-5 border-b border-border-subtle/20">
+    <a href="/" class="flex items-center gap-3 group">
+      <span class="text-neon-cyan text-xl font-bold font-mono tracking-wider
+                   group-hover:text-neon-hot-pink transition-colors duration-300">
+        FORGE
+      </span>
+      <span class="text-xs text-text-muted font-mono tracking-widest uppercase">Hub</span>
+    </a>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="flex-1 px-3 py-4 space-y-1">
+    <% pillars.each do |pillar| %>
+      <%
+        active = current_path == pillar[:path] ||
+                 (pillar[:path] != "/" && current_path.start_with?(pillar[:path]))
+      %>
+      <%= link_to pillar[:path],
+          class: "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
+                  transition-all duration-200 group
+                  #{active ? 'bg-sidebar-active text-neon-cyan border border-neon-cyan/20' :
+                             'text-text-muted hover:bg-sidebar-hover hover:text-text-primary'}" do %>
+        <span class="<%= pillar[:color] %> text-lg w-6 text-center"><%= pillar[:icon] %></span>
+        <span><%= pillar[:name] %></span>
+        <% if active %>
+          <span class="ml-auto w-1.5 h-1.5 rounded-full bg-neon-cyan"></span>
+        <% end %>
+      <% end %>
+    <% end %>
+  </nav>
+
+  <!-- Version footer -->
+  <div class="px-5 py-3 border-t border-border-subtle/20">
+    <div class="flex items-center gap-2 text-xs text-text-dim">
+      <span class="w-2 h-2 rounded-full bg-neon-cyan animate-pulse"></span>
+      <span class="font-mono">forge v0.2.0</span>
+    </div>
+  </div>
+</aside>

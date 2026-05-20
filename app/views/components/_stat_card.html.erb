@@ -1,0 +1,34 @@
+<%#
+  Renders a metric stat card for the dashboard.
+
+  Usage:
+    <%= render "components/stat_card", label: "Backups", value: "42", icon: "◆",
+         icon_color: "text-neon-cyan", href: "/anvil/backups" %>
+
+  Options:
+    - label: Metric label text
+    - value: Metric value (string or number)
+    - icon: Icon character
+    - icon_color: Tailwind icon color class
+    - href: Optional link path
+    - hover_border: Hover border color (default: "hover:border-neon-cyan/30")
+-%%>
+
+<%
+  hover_border ||= "hover:border-neon-cyan/30"
+  tag_name = local_assigns[:href] ? :a : :div
+  href_attr = local_assigns[:href] ? { href: href } : {}
+%>
+
+<%= content_tag tag_name, href_attr,
+    class: "rounded-xl bg-bg-panel border border-border-subtle/20 p-5 #{hover_border} transition-all duration-200" do %>
+  <div class="flex items-center gap-3">
+    <% if local_assigns[:icon] %>
+      <span class="<%= icon_color %> text-2xl"><%= icon %></span>
+    <% end %>
+    <div>
+      <p class="text-2xl font-bold font-mono text-text-primary"><%= value %></p>
+      <p class="text-xs text-text-muted uppercase tracking-wider mt-0.5"><%= label %></p>
+    </div>
+  </div>
+<% end %>
