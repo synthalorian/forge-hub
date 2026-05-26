@@ -31,33 +31,38 @@
 }
 
 /* ============================================================
-   THEME: Synthwave84 (default)
+   THEME: Synthwave84 (default) — matches Omarchy synthwave84
+   Backgrounds: deep violet (#0d0221, #240037)
+   Primary accent: electric purple (#8f00ff)
+   Secondary: magenta (#ff00ff)
+   Tertiary: hot pink (#ff7edb)
+   Highlight: neon cyan (#03edf9)
    ============================================================ */
 :root,
 [data-theme="synthwave84"] {
-  --theme-bg-dark: #0f0f23;
-  --theme-bg-panel: #1a1a2e;
-  --theme-bg-card: #16213e;
-  --theme-bg-surface: #1e1e3a;
+  --theme-bg-dark: #0d0221;
+  --theme-bg-panel: #180030;
+  --theme-bg-card: #240037;
+  --theme-bg-surface: #2a0044;
 
   --theme-accent: #03edf9;
-  --theme-secondary: #0080ff;
-  --theme-tertiary: #8300ff;
+  --theme-secondary: #ff00ff;
+  --theme-tertiary: #8f00ff;
   --theme-pink: #ff7edb;
 
-  --theme-text-primary: #e0e0e0;
-  --theme-text-muted: #888;
-  --theme-text-dim: #555;
+  --theme-text-primary: #f0e6ff;
+  --theme-text-muted: #a88dc4;
+  --theme-text-dim: #614d85;
 
-  --theme-border: #614d85;
-  --theme-border-faint: rgba(97, 77, 133, 0.3);
+  --theme-border: #8f00ff;
+  --theme-border-faint: rgba(143, 0, 255, 0.25);
 
-  --theme-sidebar-bg: #12122a;
-  --theme-sidebar-hover: #1a1a3e;
-  --theme-sidebar-active: rgba(3, 237, 249, 0.1);
+  --theme-sidebar-bg: #0d0221;
+  --theme-sidebar-hover: #1e003d;
+  --theme-sidebar-active: rgba(143, 0, 255, 0.15);
 
-  --theme-glow-a: rgba(255, 0, 255, 0.03);
-  --theme-glow-b: rgba(255, 0, 255, 0.06);
+  --theme-glow-a: rgba(143, 0, 255, 0.04);
+  --theme-glow-b: rgba(143, 0, 255, 0.08);
 }
 
 /* ============================================================
@@ -85,8 +90,8 @@
   --theme-sidebar-hover: #1e293b;
   --theme-sidebar-active: rgba(96, 165, 250, 0.1);
 
-  --theme-glow-a: rgba(59, 130, 246, 0.03);
-  --theme-glow-b: rgba(59, 130, 246, 0.06);
+  --theme-glow-a: rgba(59, 130, 246, 0.04);
+  --theme-glow-b: rgba(59, 130, 246, 0.08);
 }
 
 /* ============================================================
@@ -114,8 +119,8 @@
   --theme-sidebar-hover: #0f2035;
   --theme-sidebar-active: rgba(45, 212, 191, 0.1);
 
-  --theme-glow-a: rgba(6, 182, 212, 0.03);
-  --theme-glow-b: rgba(6, 182, 212, 0.06);
+  --theme-glow-a: rgba(6, 182, 212, 0.04);
+  --theme-glow-b: rgba(6, 182, 212, 0.08);
 }
 
 /* ============================================================
@@ -127,9 +132,9 @@
   --theme-bg-card: #ffffff;
   --theme-bg-surface: #f1f5f9;
 
-  --theme-accent: #0891b2;
+  --theme-accent: #7c3aed;
   --theme-secondary: #0284c7;
-  --theme-tertiary: #7c3aed;
+  --theme-tertiary: #8b5cf6;
   --theme-pink: #a855f7;
 
   --theme-text-primary: #0f172a;
@@ -141,7 +146,7 @@
 
   --theme-sidebar-bg: #f1f5f9;
   --theme-sidebar-hover: #e2e8f0;
-  --theme-sidebar-active: rgba(8, 145, 178, 0.08);
+  --theme-sidebar-active: rgba(124, 58, 237, 0.08);
 
   --theme-glow-a: transparent;
   --theme-glow-b: transparent;
@@ -154,6 +159,7 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Subtle grid overlay */
 body::before {
   content: "";
   position: fixed;
@@ -166,23 +172,51 @@ body::before {
   z-index: 0;
 }
 
+/* Bottom horizon glow — the synthwave sunset */
 .horizon-glow {
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 800px;
-  height: 300px;
-  background: radial-gradient(ellipse at center bottom, var(--theme-glow-b, transparent) 0%, transparent 70%);
+  width: 100%;
+  max-width: 1200px;
+  height: 350px;
+  background:
+    radial-gradient(ellipse at center bottom,
+      var(--theme-glow-b, transparent) 0%,
+      rgba(255, 0, 255, 0.04) 25%,
+      rgba(143, 0, 255, 0.03) 40%,
+      transparent 70%
+    );
   pointer-events: none;
   z-index: 0;
+}
+
+/* Scanline effect — subtle CRT feel */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+[data-theme="light"] body::after {
+  background: none;
 }
 
 /* ============================================================
    Sidebar scrollbar
    ============================================================ */
 .sidebar-scroll::-webkit-scrollbar {
-  width: 4px;
+  width: 3px;
 }
 .sidebar-scroll::-webkit-scrollbar-track {
   background: transparent;
@@ -190,6 +224,9 @@ body::before {
 .sidebar-scroll::-webkit-scrollbar-thumb {
   background: var(--theme-border);
   border-radius: 2px;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-tertiary);
 }
 
 /* ============================================================
@@ -251,4 +288,28 @@ body::before {
 }
 .theme-dropdown-item.active {
   font-weight: 600;
+}
+
+/* ============================================================
+   Selection color — purple match
+   ============================================================ */
+::selection {
+  background: rgba(143, 0, 255, 0.4);
+  color: #fff;
+}
+
+/* ============================================================
+   Focus styles
+   ============================================================ */
+*:focus-visible {
+  outline: 2px solid var(--theme-tertiary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   Smooth transitions on theme change
+   ============================================================ */
+aside, header, main {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }

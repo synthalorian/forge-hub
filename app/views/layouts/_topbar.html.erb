@@ -1,26 +1,26 @@
 <%# frozen_string_literal: true %>
 
 <header class="h-14 bg-bg-panel/80 backdrop-blur-md border-b border-border-faint
-               flex items-center justify-between px-6 shrink-0">
+              flex items-center justify-between px-6 shrink-0">
   <div class="flex items-center gap-3">
     <button
       data-action="click->sidebar#toggle"
       data-sidebar-target="toggleIcon"
-      class="text-text-muted hover:text-neon-cyan transition-colors text-sm w-6 h-6
-             flex items-center justify-center rounded hover:bg-sidebar-hover"
+      class="text-text-muted hover:text-neon-purple transition-colors text-sm w-7 h-7
+             flex items-center justify-center rounded-md hover:bg-sidebar-hover"
       aria-label="Toggle sidebar"
     >
       ◀
     </button>
-    <nav class="hidden sm:flex items-center gap-2 text-sm text-text-muted">
+    <nav class="hidden sm:flex items-center gap-1.5 text-sm text-text-muted font-mono">
       <%= yield :breadcrumb %>
     </nav>
   </div>
 
   <div class="flex items-center gap-4">
-    <span class="flex items-center gap-1.5 text-xs text-text-muted font-mono">
-      <span class="w-2 h-2 rounded-full bg-neon-green inline-block"></span>
-      connected
+    <span class="flex items-center gap-1.5 text-xs text-text-dim font-mono">
+      <span class="w-1.5 h-1.5 rounded-full bg-neon-purple inline-block shadow-[0_0_6px_rgba(143,0,255,0.6)]"></span>
+      online
     </span>
   </div>
 </header>

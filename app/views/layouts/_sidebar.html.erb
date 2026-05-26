@@ -3,13 +3,13 @@
 <%
   current_path = request.path
   pillars = [
-    { name: "Dashboard",   path: "/",          icon: "◈", color: "text-neon-cyan" },
-    { name: "Anvil",       path: "/anvil",     icon: "◆", color: "text-neon-cyan" },
+    { name: "Dashboard",   path: "/",          icon: "◈", color: "text-neon-purple" },
+    { name: "Anvil",       path: "/anvil",     icon: "◆", color: "text-neon-purple" },
     { name: "Bellows",     path: "/bellows",   icon: "◇", color: "text-neon-purple" },
     { name: "Flame",       path: "/flame",     icon: "✦", color: "text-neon-pink" },
     { name: "Tongs",       path: "/tongs",     icon: "▣", color: "text-neon-yellow" },
-    { name: "Crucible",    path: "/crucible",  icon: "⬡", color: "text-neon-red" },
-    { name: "Bridge",      path: "/bridge",    icon: "⇌", color: "text-neon-blue" },
+    { name: "Crucible",    path: "/crucible",  icon: "⬡", color: "text-neon-hot-pink" },
+    { name: "Bridge",      path: "/bridge",    icon: "⇌", color: "text-neon-cyan" },
   ]
 %>
 
@@ -22,16 +22,20 @@
          shrink-0 overflow-y-auto overflow-x-hidden"
 >
   <div class="px-5 py-5 border-b border-border-faint">
-    <a href="/" class="flex items-center gap-3 group">
-      <span class="text-neon-cyan text-xl font-bold font-mono tracking-wider
-                   group-hover:text-neon-pink transition-colors duration-300">
-        FORGE
-      </span>
-      <span class="sidebar-brand-text text-xs text-text-muted font-mono tracking-widest uppercase">Hub</span>
+    <a href="/" class="flex items-center gap-2.5 group">
+      <span class="text-xl">🔨</span>
+      <div class="flex items-baseline gap-1.5">
+        <span class="text-neon-purple text-lg font-bold font-mono tracking-wider
+                     group-hover:text-neon-hot-pink transition-colors duration-300
+                     drop-shadow-[0_0_10px_rgba(143,0,255,0.5)]">
+          FORGE
+        </span>
+        <span class="sidebar-brand-text text-xs text-neon-pink font-mono tracking-widest uppercase">Hub</span>
+      </div>
     </a>
   </div>
 
-  <nav class="flex-1 px-3 py-4 space-y-1">
+  <nav class="flex-1 px-3 py-4 space-y-0.5">
     <% pillars.each_with_index do |pillar, i| %>
       <%
         active = current_path == pillar[:path] ||
@@ -43,11 +47,12 @@
         </div>
       <% end %>
       <%= link_to pillar[:path],
-          class: "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
-                  transition-all duration-200 group relative
-                  #{active ? 'bg-sidebar-active text-neon-cyan border-l-2 border-neon-cyan' :
-                             'text-text-muted hover:bg-sidebar-hover hover:text-text-primary border-l-2 border-transparent'}" do %>
-        <span class="<%= pillar[:color] %> text-base w-5 text-center shrink-0"><%= pillar[:icon] %></span>
+          class: "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium
+                  transition-all duration-200 group
+                  #{active ? 'bg-sidebar-active text-neon-purple' :
+                             'text-text-muted hover:bg-sidebar-hover hover:text-text-primary'}" do %>
+        <span class="<%= pillar[:color] %> text-base w-5 text-center shrink-0
+                     <%= 'drop-shadow-[0_0_6px_currentColor]' if active %>"><%= pillar[:icon] %></span>
         <span class="nav-label truncate"><%= pillar[:name] %></span>
       <% end %>
     <% end %>
@@ -57,16 +62,16 @@
     <div class="theme-dropdown">
       <button
         data-action="click->theme#toggleMenu"
-        class="sidebar-theme-picker w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm
+        class="sidebar-theme-picker w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm
                text-text-muted hover:bg-sidebar-hover hover:text-text-primary transition-all duration-200"
       >
-        <span class="text-text-dim text-base w-5 text-center shrink-0">🎨</span>
+        <span class="text-neon-purple text-base w-5 text-center shrink-0">🎨</span>
         <span class="nav-label" data-theme-picker data-theme-label="Synthwave84">Synthwave84</span>
       </button>
-      <div class="theme-dropdown-menu bg-bg-panel border border-border-faint shadow-lg">
+      <div class="theme-dropdown-menu bg-bg-panel border border-border-faint shadow-lg shadow-neon-purple/10">
         <button data-action="click->theme#select" data-theme-value="synthwave84"
                 class="theme-dropdown-item w-full text-left text-text-primary bg-bg-panel hover:bg-sidebar-hover">
-          <span class="w-3 h-3 rounded-full bg-neon-cyan shrink-0"></span>
+          <span class="w-3 h-3 rounded-full bg-neon-purple shrink-0 shadow-[0_0_6px_rgba(143,0,255,0.5)]"></span>
           <span>Synthwave84</span>
         </button>
         <button data-action="click->theme#select" data-theme-value="midnight"
@@ -90,7 +95,7 @@
 
   <div class="px-5 py-3 border-t border-border-faint">
     <div class="flex items-center gap-2 text-xs text-text-dim">
-      <span class="sidebar-connection-dot w-2 h-2 rounded-full bg-neon-green shrink-0"></span>
+      <span class="sidebar-connection-dot w-1.5 h-1.5 rounded-full bg-neon-purple shrink-0 shadow-[0_0_4px_rgba(143,0,255,0.5)]"></span>
       <span class="sidebar-version-text font-mono">forge v0.2.0</span>
     </div>
   </div>
